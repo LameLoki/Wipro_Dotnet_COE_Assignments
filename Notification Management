@@ -1,0 +1,74 @@
+using System;
+
+// Notification abstraction
+interface INotification
+{
+    void Send(string message);
+}
+
+// Email notification
+class EmailNotification : INotification
+{
+    public void Send(string message)
+    {
+        Console.WriteLine($"Email Notification: {message}");
+    }
+}
+
+// SMS notification
+class SmsNotification : INotification
+{
+    public void Send(string message)
+    {
+        Console.WriteLine($"SMS Notification: {message}");
+    }
+}
+
+// Push notification
+class PushNotification : INotification
+{
+    public void Send(string message)
+    {
+        Console.WriteLine($"Push Notification: {message}");
+    }
+}
+
+// Notification service
+class NotificationService
+{
+    private INotification notification;
+
+    public NotificationService(INotification notification)
+    {
+        this.notification = notification;
+    }
+
+    public void Notify(string message)
+    {
+        notification.Send(message);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        INotification email = new EmailNotification();
+        NotificationService emailService =
+            new NotificationService(email);
+
+        emailService.Notify("Welcome to our application!");
+
+        INotification sms = new SmsNotification();
+        NotificationService smsService =
+            new NotificationService(sms);
+
+        smsService.Notify("Your OTP is 1234.");
+
+        INotification push = new PushNotification();
+        NotificationService pushService =
+            new NotificationService(push);
+
+        pushService.Notify("You have a new notification.");
+    }
+}
