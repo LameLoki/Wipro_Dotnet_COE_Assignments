@@ -1,0 +1,62 @@
+using System;
+
+// Discount interface
+interface IDiscount
+{
+    double CalculateDiscount(double amount);
+}
+
+// Regular customer: 10%
+class RegularDiscount : IDiscount
+{
+    public double CalculateDiscount(double amount)
+    {
+        return amount * 0.10;
+    }
+}
+
+// Premium customer: 20%
+class PremiumDiscount : IDiscount
+{
+    public double CalculateDiscount(double amount)
+    {
+        return amount * 0.20;
+    }
+}
+
+// Gold customer: 30%
+class GoldDiscount : IDiscount
+{
+    public double CalculateDiscount(double amount)
+    {
+        return amount * 0.30;
+    }
+}
+
+// Discount calculator
+class DiscountCalculator
+{
+    public double GetFinalPrice(double amount, IDiscount discount)
+    {
+        double discountAmount = discount.CalculateDiscount(amount);
+
+        return amount - discountAmount;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        DiscountCalculator calculator = new DiscountCalculator();
+
+        double amount = 1000;
+
+        IDiscount discount = new PremiumDiscount();
+
+        double finalPrice = calculator.GetFinalPrice(amount, discount);
+
+        Console.WriteLine($"Original Price: {amount}");
+        Console.WriteLine($"Final Price: {finalPrice}");
+    }
+}
