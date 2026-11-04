@@ -1,0 +1,88 @@
+using System;
+
+// Common payment interface
+interface IPaymentMethod
+{
+    void Pay(double amount);
+}
+
+// Card payment
+class CardPayment : IPaymentMethod
+{
+    public void Pay(double amount)
+    {
+        Console.WriteLine($"Paid ₹{amount} using Card.");
+    }
+}
+
+// UPI payment
+class UpiPayment : IPaymentMethod
+{
+    public void Pay(double amount)
+    {
+        Console.WriteLine($"Paid ₹{amount} using UPI.");
+    }
+}
+
+// Wallet payment
+class WalletPayment : IPaymentMethod
+{
+    public void Pay(double amount)
+    {
+        Console.WriteLine($"Paid ₹{amount} using Wallet.");
+    }
+}
+
+// Payment service
+class PaymentService
+{
+    private IPaymentMethod paymentMethod;
+
+    public PaymentService(IPaymentMethod paymentMethod)
+    {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public void ProcessPayment(double amount)
+    {
+        paymentMethod.Pay(amount);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Select Payment Method:");
+        Console.WriteLine("1. Card");
+        Console.WriteLine("2. UPI");
+        Console.WriteLine("3. Wallet");
+
+        int choice = Convert.ToInt32(Console.ReadLine());
+
+        IPaymentMethod paymentMethod;
+
+        switch (choice)
+        {
+            case 1:
+                paymentMethod = new CardPayment();
+                break;
+
+            case 2:
+                paymentMethod = new UpiPayment();
+                break;
+
+            case 3:
+                paymentMethod = new WalletPayment();
+                break;
+
+            default:
+                Console.WriteLine("Invalid payment method.");
+                return;
+        }
+
+        PaymentService service = new PaymentService(paymentMethod);
+
+        service.ProcessPayment(1000);
+    }
+}
