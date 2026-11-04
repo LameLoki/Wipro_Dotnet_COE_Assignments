@@ -1,0 +1,63 @@
+using System;
+using System.Collections.Generic;
+
+// Student details
+class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+
+    public Student(int id, string name, string email)
+    {
+        Id = id;
+        Name = name;
+        Email = email;
+    }
+}
+
+// Student database operations
+class StudentRepository
+{
+    private List<Student> students = new List<Student>();
+
+    public void AddStudent(Student student)
+    {
+        students.Add(student);
+        Console.WriteLine("Student added successfully.");
+    }
+
+    public void DisplayStudents()
+    {
+        foreach (Student student in students)
+        {
+            Console.WriteLine(
+                $"ID: {student.Id}, Name: {student.Name}, Email: {student.Email}");
+        }
+    }
+}
+
+// Email notification
+class StudentEmailService
+{
+    public void SendEmail(Student student)
+    {
+        Console.WriteLine($"Email sent to {student.Email}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Student student = new Student(
+            1, "Lokesh", "lokesh@gmail.com");
+
+        StudentRepository repository = new StudentRepository();
+        StudentEmailService emailService = new StudentEmailService();
+
+        repository.AddStudent(student);
+        repository.DisplayStudents();
+        emailService.SendEmail(student);
+    }
+}
