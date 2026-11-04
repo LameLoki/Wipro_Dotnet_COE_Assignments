@@ -1,0 +1,61 @@
+using System;
+
+// Base bird class
+abstract class Bird
+{
+    public abstract void Eat();
+}
+
+// Interface for flying birds only
+interface IFlyable
+{
+    void Fly();
+}
+
+// Sparrow
+class Sparrow : Bird, IFlyable
+{
+    public override void Eat()
+    {
+        Console.WriteLine("Sparrow is eating.");
+    }
+
+    public void Fly()
+    {
+        Console.WriteLine("Sparrow is flying.");
+    }
+}
+
+// Penguin
+class Penguin : Bird
+{
+    public override void Eat()
+    {
+        Console.WriteLine("Penguin is eating.");
+    }
+}
+
+// Ostrich
+class Ostrich : Bird
+{
+    public override void Eat()
+    {
+        Console.WriteLine("Ostrich is eating.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Sparrow sparrow = new Sparrow();
+        Penguin penguin = new Penguin();
+        Ostrich ostrich = new Ostrich();
+
+        sparrow.Eat();
+        sparrow.Fly();
+
+        penguin.Eat();
+        ostrich.Eat();
+    }
+}
